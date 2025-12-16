@@ -6,10 +6,10 @@ int main()
 	SDL_Renderer *renderer = NULL;
 
 	SDL_Init(SDL_INIT_VIDEO);
-	SDL_CreateWindowAndRenderer(640, 480, 0, &window, &renderer);
-	// SDL_RenderSetScale(renderer, 4, 4);
 
-	
+	int windowSize[2] = {640, 480};
+	SDL_CreateWindowAndRenderer(windowSize[0], windowSize[1], 0, &window, &renderer);
+
 	SDL_Event event;
 	int running = 1;
 	while (running)
@@ -19,16 +19,27 @@ int main()
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		SDL_RenderClear(renderer);
 
-		SDL_Rect rect;
-		rect.x = 0;
-		rect.y = 0;
-		rect.w = 50;
-		rect.h = 50;
+		int rectSize[2] = {windowSize[0]/8, windowSize[1]/8};
 
-		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-		SDL_RenderFillRect(renderer, &rect);
+		int columns = 8;
+		int rows = 8;
 
-		SDL_RenderPresent(renderer);	
+		for (int column = 0; column <= columns; column++)
+		{
+			for (int row = 0; row <= rows; row++)
+			{
+				SDL_Rect rect;
+				rect.x = i * windowSize[0]/8;
+				rect.y = i * windowSize[1]/8;
+				rect.w = rectSize[0];
+				rect.h = rectSize[1];
+
+				SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+				SDL_RenderFillRect(renderer, &rect);
+			}
+		}
+
+		SDL_RenderPresent(renderer);
 	}
 
 	SDL_DestroyRenderer(renderer);

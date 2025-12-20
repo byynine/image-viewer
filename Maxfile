@@ -1,0 +1,1 @@
+build=gcc -O0 -Wall -Wextra -Wpedantic -Wshadow -lSDL2 -o dist/@1 src/@1.c

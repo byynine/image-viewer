@@ -1,5 +1,10 @@
 #include <SDL2/SDL.h>
 
+int map(int value, int in_min, int in_max, int out_min, int out_max)
+{
+    return (value - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
 int main()
 {
 	SDL_Window *window = NULL;
@@ -19,22 +24,24 @@ int main()
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		SDL_RenderClear(renderer);
 
-		int rectSize[2] = {windowSize[0]/8, windowSize[1]/8};
+		int columns = windowSize[0];
+		int rows = windowSize[1];
 
-		int columns = 8;
-		int rows = 8;
+		int rectSize[2] = {windowSize[0]/columns, windowSize[1]/rows};
 
-		for (int column = 0; column <= columns; column++)
+		for (int column = 0; column < columns; column++)
 		{
-			for (int row = 0; row <= rows; row++)
+			for (int row = 0; row < rows; row++)
 			{
 				SDL_Rect rect;
-				rect.x = i * windowSize[0]/8;
-				rect.y = i * windowSize[1]/8;
-				rect.w = rectSize[0];
-				rect.h = rectSize[1];
+				rect.x = column * rectSize[0];
+				rect.y = row * rectSize[1];
+				rect.w = (column == columns - 1) ? windowSize[0] - rect.x : rectSize[0];
+				rect.h = (row == rows - 1) ? windowSize[1] - rect.y : rectSize[1];
 
-				SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+				int shade = map(row, 0, rows - 1, 0, 255);
+
+				SDL_SetRenderDrawColor(renderer, shade, shade, shade, 255);
 				SDL_RenderFillRect(renderer, &rect);
 			}
 		}

@@ -3,11 +3,6 @@
 
 #include <SDL2/SDL.h>
 
-int map(int value, int inMin, int inMax, int outMin, int outMax)
-{
-    return (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
-}
-
 int readBitmap(
     const char *bitmapFilename,
     uint32_t resolution[2],

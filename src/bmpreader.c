@@ -18,11 +18,11 @@ int main(void)
 	}
 	printf("\n");
 
-	// uint32_t offset;
+	uint32_t offset;
 
-	// fseek(bmp, 10, SEEK_SET);
-	// fread(&offset, sizeof(offset), 1, bmp);
-	// fseek(bmp, offset, SEEK_SET);
+	fseek(bmp, 10, SEEK_SET);
+	fread(&offset, sizeof(offset), 1, bmp);
+	fseek(bmp, offset, SEEK_SET);
 
 	fclose(bmp);
 	return 0;
